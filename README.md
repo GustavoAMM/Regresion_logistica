@@ -15,3 +15,41 @@
 - Se almacenan los valores de pérdida y número de iteración en las listas creadas anteriormente.
 
 - Finalmente, se devuelve una tupla con las dos listas.
+
+## Demostración del funcionamiento del algoritmo
+
+### Importamos los paquetes necesarios
+
+```
+from sklearn import datasets
+import logistic_regression as lr
+from matplotlib import pyplot as plt
+import numpy as np
+```
+
+### Cargamos el dataset del cáncer
+
+```
+data_set = datasets.load_breast_cancer()
+```
+### Seleccionamos las características (X) y el objetivo (y)
+```
+X = data_set['data']
+X.shape
+y = data_set['target']
+y.shape
+```
+### Normalizamos los valores de X para corregir el error de que estén muy alejados
+```
+X = (X - np.mean(X, axis=0)) / np.std(X, axis=0)
+```
+### Creamos un objeto de regresión logística y lo ajustamos al conjunto de datos
+```
+lr = lr.LogisticRegression()
+iteraciones, errores = lr.fit(X, y)
+```
+### Graficamos el progreso del ajuste de la regresión logística
+```
+plt.plot(iteraciones, errores)
+plt.show()
+```
